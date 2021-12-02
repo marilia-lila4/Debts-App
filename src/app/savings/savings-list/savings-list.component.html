@@ -1,0 +1,77 @@
+<h1 class="mt-4">Poupança</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Listagem</li>
+</ol>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert" *ngIf="messageSuccess">
+        {{ messageSuccess }}
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="messageError">
+        {{ messageError }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <button class="btn btn-warning" (click)="newSaving()">
+        <i class="fa fa-plus"></i> Novo
+      </button>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-condensed table-hover">
+        <thead>
+          <th>Valor</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let saving of savings">
+            <td>{{ saving.value }}</td>
+            <td>{{ saving.date }}</td>
+            <td>
+              <button
+                class="btn btn-primary"
+                routerLink="/savings/form/{{ saving.id }}"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+              <button
+                class="btn btn-danger"
+                data-toggle="modal"
+                data-target="#modalDelecao"
+                (click)="modalDeleteSaving(saving)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">Confirmação</div>
+        <div class="modal-body" *ngIf="savingSelect">
+          Confirmar a exclusão do valor {{ savingSelect.value }}?
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-success"
+            (click)="deleteSaving()"
+            data-dismiss="modal"
+          >
+            Confirmar
+          </button>
+          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

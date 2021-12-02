@@ -1,0 +1,21 @@
+<mat-card style="text-align: center">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>card_travel</mat-icon>
+      Objetivo
+    </mat-card-title>
+  </mat-card-header>
+  <img
+    mat-card-image
+    class="foto"
+    src="data:image/jpg;base64,{{ photo.photo }}"
+  />
+  <mat-card-actions>
+    <button mat-raised-button color="basic" (click)="closePhoto()">
+      Fechar
+    </button>
+    <!-- <button mat-raised-button color="warn" (click)="deletePhoto()">
+      Deletar
+    </button> -->
+  </mat-card-actions>
+</mat-card>

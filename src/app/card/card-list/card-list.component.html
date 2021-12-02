@@ -1,0 +1,125 @@
+<h1 class="mt-4">Cartões de Crédito</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrum-bitem active">Pesquisar</li>
+</ol>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert" *ngIf="messageSuccess">
+        {{ messageSuccess }}
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="messageError">
+        {{ messageError }}
+      </div>
+    </div>
+  </div>
+  <form #searchForm="ngForm" (submit)="search()">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="name">Nome do Cartão:</label>
+        <input
+          type="text"
+          [(ngModel)]="name"
+          class="form-control"
+          name="name"
+          id="name"
+        />
+      </div>
+      <div class="col-md-6">
+        <label for="month">Mês:</label>
+        <select [(ngModel)]="month" name="month" class="form-control">
+          <option value="">Selecione ...</option>
+          <option *ngFor="let month of months" [value]="month">
+            {{ month }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-search"></i> Pesquisar
+        </button>
+        <button
+          type="button"
+          routerLink="/cards/form"
+          class="btn btn-warning ml-1"
+        >
+          <i class="fa fa-plus"></i> Novo
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <br />
+  <div class="row">
+    <div class="alert alert-warning" role="alert" *ngIf="message">
+      {{ message }}
+    </div>
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Dívida</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Parcelas</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let list of lists">
+            <td>{{ list.debt.name }}</td>
+            <td>{{ list.name }}</td>
+            <td>{{ list.description }}</td>
+            <td>{{ list.value }}</td>
+            <td>{{ list.installments }}</td>
+            <td>{{ list.date }}</td>
+            <td>{{ list.status }}</td>
+            <td>
+              <button
+                class="btn btn-primary"
+                routerLink="/cards/form/{{ list.id }}"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+              <button
+                class="btn btn-danger"
+                data-toggle="modal"
+                data-target="#modalDelecao"
+                (click)="modalDeleteCard(list)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">Confirmação</div>
+        <div class="modal-body" *ngIf="cardSelect">
+          Confirmar a conclusão da dívida {{ cardSelect.name }}?
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-success"
+            (click)="deleteCard()"
+            data-dismiss="modal"
+          >
+            Confirmar
+          </button>
+          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

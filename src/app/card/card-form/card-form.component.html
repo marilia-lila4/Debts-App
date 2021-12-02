@@ -1,0 +1,146 @@
+<h1 class="mt-4">Cartões de Crédito</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrum-bitem active">
+    {{ card.id ? "Atualizar Dívida" : "Cadastro de Dívidas" }}
+  </li>
+</ol>
+<div class="container">
+  <form #form="ngForm" (submit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="messageSuccess">
+          Dívida criada/atualizada com sucesso!
+        </div>
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngFor="let error of messageErrors"
+        >
+          {{ error }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group" *ngIf="!card.id">
+          <label>Dívida: </label>
+          <select
+            class="form-control"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="card.idDebt"
+          >
+            <option value="">Selecione ...</option>
+            <option *ngFor="let debt of debts" [ngValue]="debt.id">
+              {{ debt.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group" *ngIf="card.id">
+          <label>Dívida: </label>
+          <input
+            class="form-control"
+            [ngModel]="lists.debt ? lists.debt.name : ''"
+            type="text"
+            name="nameDebt"
+            id="nameDebt"
+            disabled
+          />
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <label>Nome: </label>
+          <input
+            class="form-control"
+            [(ngModel)]="card.name"
+            type="text"
+            name="name"
+            id="name"
+          />
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <label>Descrição: </label>
+          <input
+            class="form-control"
+            [(ngModel)]="card.description"
+            type="text"
+            name="descricao"
+            id="descricao"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Valor: </label>
+          <input
+            class="form-control"
+            [(ngModel)]="card.value"
+            type="text"
+            name="value"
+            id="value"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Parcelas: </label>
+          <input
+            class="form-control"
+            [(ngModel)]="card.installments"
+            type="text"
+            name="installments"
+            id="installments"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Data: </label>
+          <input
+            class="form-control"
+            [(ngModel)]="card.date"
+            type="text"
+            name="date"
+            id="date"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Status: </label>
+          <input
+            class="form-control"
+            [(ngModel)]="card.status"
+            type="text"
+            name="status"
+            id="status"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-success" *ngIf="!card.id">
+          <i class="fa fa-save"></i>Salvar
+        </button>
+        <button type="submit" class="btn btn-primary" *ngIf="card.id">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button>
+        <button
+          type="button"
+          routerLink="/cards/list"
+          class="btn btn-danger ml-1"
+        >
+          <i class="fa fa-arrow-alt-circle-left"></i>Voltar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

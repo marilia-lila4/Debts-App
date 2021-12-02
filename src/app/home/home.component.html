@@ -1,0 +1,123 @@
+<h1 class="mt-4">Lembre-se do seu objetivo</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Quem se livra das dívidas enriquece</li>
+</ol>
+
+<!--
+FALTA FAZER <br /><br />
+
+A tabela de cartão só mostra tudo com as condições de pesquisa. Ajustar isso
+depois <br />
+
+<div *ngFor="let card of cards">Dívida total do cartão: {{ card.name }}</div>
+<div *ngFor="let debt of debts">
+  Dívida total gasto no mês: {{ debt.value }}
+</div>
+<div *ngFor="let saving of savings">
+  Poupança: {{ saving.value }} | Falta para conseguir o objetivo:
+</div>
+-->
+
+<br /><br />
+<div class="container px-4">
+  <div class="row gx-5">
+    <div class="p-3" style="font-size: large; font-weight: bold">Poupança</div>
+    <div class="col">
+      <div class="p-3 border bg-light text-primary">
+        <b>Hoje:</b> R$ 5.000,00
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 border bg-light text-warning">
+        <b>Falta:</b> R$ 3.000,00
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 border bg-light text-success">
+        <b>Total:</b> R$ 8.000,00
+      </div>
+    </div>
+  </div>
+</div>
+<br /><br />
+
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>card_travel</mat-icon>
+      Objetivos
+    </ng-template>
+    <br />
+    <div class="alert alert-warning" role="alert" *ngIf="message">
+      {{ message }}
+    </div>
+    <mat-card class="example-card" *ngFor="let photo of photos">
+      <mat-card-header>
+        <mat-card-title>{{ photo.name }}</mat-card-title>
+        <mat-card-subtitle> Objetivo</mat-card-subtitle>
+        <mat-card-actions>
+          <button
+            class="btn btn-danger"
+            data-toggle="modal"
+            data-target="#modalDelecao"
+            (click)="modalDeletePhoto(photo)"
+          >
+            Excluir
+          </button>
+        </mat-card-actions>
+      </mat-card-header>
+      <div *ngIf="photo.photo">
+        <img
+          class="image"
+          (click)="viewPhoto(photo)"
+          src="data:image/jpg;base64,{{ photo.photo }}"
+        />
+      </div>
+      <div *ngIf="!photo.photo">
+        <input type="file" name="photo" (change)="uploadPhoto($event, photo)" />
+      </div>
+    </mat-card>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>flight_takeoff</mat-icon>
+      Adiconar Novo
+    </ng-template>
+    <mat-card class="half-width">
+      <mat-card-title>Novo Objetivo</mat-card-title>
+      <form [formGroup]="formulario" (ngSubmit)="submit()">
+        <mat-form-field class="full-width">
+          <mat-label> Nome: </mat-label>
+          <input
+            formControlName="name"
+            matInput
+            placeholder="Digite seu nome"
+          />
+        </mat-form-field>
+        <br />
+        <button mat-raised-button color="primary">Adicionar</button>
+      </form>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
+
+<div id="modalDelecao" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">Confirmação</div>
+      <div class="modal-body" *ngIf="photoSelect">
+        Confirmar a exclusão do objetivo {{ photoSelect.name }}?
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-success"
+          (click)="deletePhoto()"
+          data-dismiss="modal"
+        >
+          Confirmar
+        </button>
+        <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<h1 class="mt-4">Dívidas</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">
+    {{ debt.id ? "Atualizar Dívida" : "Cadastro de Dívidas" }}
+  </li>
+</ol>
+<div class="container">
+  <form #debtForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="messageSuccess">
+          Dívida criada/atualizada com sucesso!
+        </div>
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngFor="let error of messageErrors"
+        >
+          {{ error }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="debt.id">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>ID:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="id"
+            [ngModel]="debt.id"
+            disabled="true"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Data do Cadastro:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="registrationData"
+            [ngModel]="debt.registrationData"
+            disabled="true"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Nome:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            [(ngModel)]="debt.name"
+          />
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="form-group">
+          <label>Descrição:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            [(ngModel)]="debt.description"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Valor:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="value"
+            [(ngModel)]="debt.value"
+          />
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="form-group">
+          <label>Status:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="status"
+            [(ngModel)]="debt.status"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-success" *ngIf="!debt.id">
+          <i class="fa fa-save"></i> Salvar
+        </button>
+        <button type="submit" class="btn btn-primary" *ngIf="debt.id">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button>
+        <button type="button" class="btn btn-danger ml-1" (click)="newDebt()">
+          <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
